@@ -64,8 +64,10 @@ namespace fisher {
 
 		FindWeight findWeight = new FindWeight();
 
-		public static void LeftClick(Point point) {
-			NativeMethods.mouse_event(MOUSEEVENTF_LEFTDOWN, point.X, point.Y, 0, 0);
+		//public static void LeftClick(Point point) {
+		public void LeftClick(Point point)
+			{
+				NativeMethods.mouse_event(MOUSEEVENTF_LEFTDOWN, point.X, point.Y, 0, 0);
 			NativeMethods.mouse_event(MOUSEEVENTF_LEFTUP, point.X, point.Y, 0, 0);
 		}
 
@@ -226,14 +228,14 @@ namespace fisher {
 		//---------------------------------------------------------------------------------------------------------//
 		public void startCast(Point locationStartButton) {
 			checkIfUserOnStartScreen(locationStartButton);
-			Color fullRangeCastColor = Color.FromArgb(026, 118, 241);
+			Color fullRangeCastColor = Color.FromArgb(26, 120, 242);	// TODO clean up 026, 118, 241);
 			Point rangeAreaPosition = new Point(locationStartButton.X, locationStartButton.Y - 75);
 			Thread.Sleep(100);
 			castRod(rangeAreaPosition, fullRangeCastColor);
 		}
 
 		public bool checkIfUserOnStartScreen(Point locationStartButton) {
-			if (GetPixelColor(locationStartButton).Equals(Color.FromArgb(155, 208, 30))) {
+			if (GetPixelColor(locationStartButton).Equals(Color.FromArgb(156, 208, 31))) { //(155, 208, 30))) {	// TODO 
 				Cursor.Position = locationStartButton;
 				LeftClick(locationStartButton);
 				return true;
@@ -284,6 +286,8 @@ namespace fisher {
 			Thread.Sleep(500);
 			Cursor.Position = closeLocation;
 			LeftClick(closeLocation);
+			Thread.Sleep(500);
+			LeftClick(closeLocation);		// 2nd click needed?
 			Thread.Sleep(500);
 		}
 
